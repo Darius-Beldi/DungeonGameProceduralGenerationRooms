@@ -5,6 +5,7 @@ var RoomScene = preload("res://Scenes/Room.tscn")
 var DoorScene = preload("res://Scenes/door.tscn")
 var CameraScene = preload("res://Scenes/camera.tscn")
 var CharacterScene = preload("res://Scenes/debug_character.tscn")
+var SpikesScene = preload("res://Scenes/spikes.tscn")
 
 const M_SIZE = 5
 const MAX_CAMERE = 7
@@ -73,14 +74,15 @@ func instantiate_rooms():
 				# Store the room in the dictionary for easy access later
 				rooms[Vector2(x, y)] = room
 				
-				# Special handling for value 2 (could be a special room, like a starting room)
+				# 1 -> starting_room
+				# 2 -> spike_room
+				# 7 -> boss_room
+				
 				if cell_value == 2:
-					# You can add special properties to this room
-					# For example:
-					#room.name = "BossRoom"
-					#var bosstest = DoorScene.instantiate()
-					#add_child(bosstest)
-					#bosstest.position = Vector2((y-2) * room_size.x , -(2-x) * room_size.y)
+					# Center of the room: room.position = Vector2((y-2) * room_size.x , -(2-x) * room_size.y)
+					var spikes = SpikesScene.instantiate()
+					add_child(spikes)
+					spikes.position = Vector2((y-2) * room_size.x , -(2-x) * room_size.y)
 					pass
 					# If your Room has properties like is_starting_room, you can set them here
 	
